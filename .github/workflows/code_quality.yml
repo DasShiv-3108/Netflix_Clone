@@ -26,4 +26,13 @@ jobs:
         - name: Install Dependencies
           run: npm install
 
+        - name: Check HTML
+          run: npx htmlhint "public/**/*.html"
+
+        - name: Check CSS
+          run: npx stylelint "public/css/**/*.css"
+
+        - name: Check JS
+          run: npx eslint "public/js/**/*.js"
+
         
