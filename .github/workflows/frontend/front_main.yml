@@ -1,0 +1,14 @@
+name: Frontend 
+
+on:
+    workflow_call:
+
+jobs:
+    frontend:
+        runs-on: ubuntu-latest
+
+        steps:
+
+            - name: Code Quality
+              uses: ./.github/workflows/frontend/code_quality.yml
+              
