@@ -24,7 +24,7 @@ jobs:
             node-version: 25
 
         - name: Install Dependencies
-          run: npm install
+          run: npm install --save-dev eslint stylelint htmlhint stylelint-config-standard
 
         - name: Check HTML
           run: npx htmlhint "public/**/*.html"
