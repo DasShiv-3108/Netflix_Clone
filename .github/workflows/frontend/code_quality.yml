@@ -12,6 +12,6 @@ jobs:
         - name: Code Checkout
           uses: actions/checkout@v6
 
-        -name: Testing
+        - name: Testing
           run: |
             echo "Kya haal hai"
