@@ -1,0 +1,12 @@
+{
+  "name": "netflix-clone",
+  "version": "1.0.0",
+  "description": "> A production-style **3-Tier Dockerized** Netflix replica with a full-featured dark UI, REST API, and MongoDB database — all running with a single command.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
