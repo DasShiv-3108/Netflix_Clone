@@ -1,0 +1,57 @@
+version: "3.9"
+services: 
+  database:
+    image: mongo:7.0
+    container_name: netflix_db
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: netflix123
+      MONGO_INITDB_DATABASE: netflixdb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+      - ./database/init/seed.js:/docker-entrypoint-initdb.d/seed.js
+    networks:
+      - netflix-net
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: netflix_api
+    restart: unless-stopped
+    environment:
+      PORT: 5000
+      MONGO_URI: mongodb://admin:netflix123@database:27017/netflixdb?authSource=admin
+      JWT_SECRET: netflix_super_secret_key_2024
+      NODE_ENV: production
+    ports:
+      - "5000:5000"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks:
+      - netflix-net
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: netflix_ui
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on: 
+      - backend
+    networks:
+      - netflix-net     
+networks:
+  netflix-net:
+    driver: bridge
+volumes:
+  mongo_data:
