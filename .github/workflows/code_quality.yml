@@ -1,4 +1,4 @@
-name: code Quality
+name: Frontend code linting
 
 on:
   workflow_call:
@@ -12,7 +12,12 @@ jobs:
 
         - name: Code Checkout
           uses: actions/checkout@v6
+        
 
-        - name: Testing
-          run: |
-            echo "Kya haal hai"
+        - name: Setup Node.js
+          uses: actions/setup-node@v6
+          with:
+            node-version: 25
+        - run: npm ci
+        - run: npm test
+        
