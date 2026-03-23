@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NetStream — Watch Anywhere</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,600;0,700;1,300&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     LOGIN OVERLAY
+════════════════════════════════════════════ -->
+<div id="loginOverlay" class="login-overlay">
+  <div class="login-bg"></div>
+  <div class="login-card">
+    <div class="login-logo">NET<span>STREAM</span></div>
+    <h2>Sign In</h2>
+    <p class="login-sub">Use: demo@netflix.com / demo123</p>
+    <div class="input-group">
+      <input type="email" id="loginEmail" placeholder="Email address" value="demo@netflix.com" />
+    </div>
+    <div class="input-group">
+      <input type="password" id="loginPassword" placeholder="Password" value="demo123" />
+    </div>
+    <button class="btn-signin" onclick="login()">
+      <span>Sign In</span>
+    </button>
+    <div id="loginError" class="login-error"></div>
+    <p class="login-new">New to NetStream? <a href="#" onclick="skipLogin()">Browse as Guest</a></p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MAIN APP
+════════════════════════════════════════════ -->
+<div id="app" class="app hidden">
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-left">
+      <div class="nav-logo">NET<span>STREAM</span></div>
+      <ul class="nav-links">
+        <li><a href="#" class="active" data-section="home">Home</a></li>
+        <li><a href="#" data-section="series">TV Shows</a></li>
+        <li><a href="#" data-section="movies">Movies</a></li>
+        <li><a href="#" data-section="new">New &amp; Popular</a></li>
+        <li><a href="#" data-section="mylist">My List</a></li>
+      </ul>
+    </div>
+    <div class="nav-right">
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search titles..." oninput="handleSearch(this.value)" />
+      </div>
+      <div class="nav-avatar" id="navAvatar">D</div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content" id="heroContent">
+      <div class="hero-badge"><i class="fas fa-fire"></i> #1 in India Today</div>
+      <h1 class="hero-title" id="heroTitle">Loading...</h1>
+      <div class="hero-meta" id="heroMeta"></div>
+      <p class="hero-desc" id="heroDesc"></p>
+      <div class="hero-actions">
+        <button class="btn-play" onclick="playMovie()">
+          <i class="fas fa-play"></i> Play
+        </button>
+        <button class="btn-more" onclick="showMoreInfo()">
+          <i class="fas fa-info-circle"></i> More Info
+        </button>
+        <button class="btn-add" id="heroAddBtn" onclick="addToMyList()">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="hero-genre-badge" id="heroGenre"></div>
+  </section>
+
+  <!-- CONTENT ROWS -->
+  <main class="content" id="mainContent">
+    <section class="row" id="trendingRow">
+      <div class="row-header">
+        <h2 class="row-title"><span class="row-num">01</span> Trending Now</h2>
+      </div>
+      <div class="row-slider" id="trendingSlider"></div>
+    </section>
+
+    <section class="row" id="popularRow">
+      <div class="row-header">
+        <h2 class="row-title"><span class="row-num">02</span> Popular on NetStream</h2>
+      </div>
+      <div class="row-slider" id="popularSlider"></div>
+    </section>
+
+    <section class="row" id="newRow">
+      <div class="row-header">
+        <h2 class="row-title"><span class="row-num">03</span> New Arrivals</h2>
+      </div>
+      <div class="row-slider" id="newSlider"></div>
+    </section>
+
+    <section class="row hidden" id="myListRow">
+      <div class="row-header">
+        <h2 class="row-title"><span class="row-num">04</span> My List</h2>
+      </div>
+      <div class="row-slider" id="myListSlider"></div>
+    </section>
+  </main>
+
+</div>
+
+<!-- ═══════════════════════════════════════════
+     MOVIE MODAL
+════════════════════════════════════════════ -->
+<div id="movieModal" class="modal hidden">
+  <div class="modal-overlay" onclick="closeModal()"></div>
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-hero" id="modalHero">
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-actions">
+        <button class="btn-play-sm"><i class="fas fa-play"></i> Play</button>
+        <button class="btn-add-sm" id="modalAddBtn" onclick="addToMyListFromModal()">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-top">
+        <div class="modal-left">
+          <h2 id="modalTitle"></h2>
+          <div class="modal-meta" id="modalMeta"></div>
+          <p id="modalDesc"></p>
+        </div>
+        <div class="modal-right">
+          <div class="modal-detail"><span>Cast:</span> <em id="modalCast"></em></div>
+          <div class="modal-detail"><span>Genres:</span> <em id="modalGenre"></em></div>
+          <div class="modal-detail"><span>Language:</span> <em id="modalLang"></em></div>
+          <div class="modal-detail"><span>Maturity:</span> <em id="modalMaturity"></em></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast" class="toast hidden"></div>
+
+<!-- SEARCH RESULTS OVERLAY -->
+<div id="searchOverlay" class="search-overlay hidden">
+  <div class="search-results" id="searchResults"></div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>
