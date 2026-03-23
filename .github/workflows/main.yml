@@ -1,0 +1,14 @@
+name: DevSecOps Pipeline
+
+on:
+    workflow_dispatch:
+
+jobs:
+    netflix:
+        runs-on: ubuntu-latest
+
+        steps:
+
+            - name: Frontend
+              uses: ./.github/workflows/frontend/front_main.yml
+              
