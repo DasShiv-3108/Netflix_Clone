@@ -1,0 +1,17 @@
+name: code Quality
+
+on:
+    workflow_call:
+
+jobs:
+   Code Quality:
+    runs-on: ubuntu-latest
+
+    steps:
+
+        - name: Code Checkout
+          uses: actions/checkout@v6
+
+        -name: Testing
+          run: |
+            echo "Kya haal hai"
