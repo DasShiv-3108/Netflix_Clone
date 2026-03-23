@@ -5,5 +5,5 @@ on:
 
 jobs:
     Frontend:
-     uses: ./.github/workflows/frontend/front_main.yml
-              
+     uses: ./.github/workflows/front_main.yml
+     
