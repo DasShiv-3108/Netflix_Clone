@@ -6,7 +6,7 @@ on:
 jobs:
     Frontend:
         name: Frontend Linting
-        uses: ./.github/workflows/front_main.yml
+        uses: ./.github/workflows/front_code_quality.yml
 
     Gitleaks:
         name: Git Secrets Scan
