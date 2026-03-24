@@ -31,4 +31,5 @@ jobs:
         name: Docker Image Scan
         uses: ./.github/workflows/trivy.yml
         with:
-            secret: inherit
+            secrets: inherit
+                
