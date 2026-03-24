@@ -9,11 +9,13 @@ jobs:
         uses: ./.github/workflows/front_code_quality.yml
 
     Gitleaks:
+        needs: Frontend
         name: Git Secrets Scan
         uses: ./.github/workflows/git_secrets_scan.yml
         
 
     Dockerlint:
+        needs: Gitleaks
         name: Dockerfile Linting
         uses: ./.github/workflows/Docker_lint.yml
     
