@@ -5,5 +5,29 @@ on:
 
 jobs:
     Frontend:
-     uses: ./.github/workflows/front_main.yml
-     
+        name: Frontend Linting
+        uses: ./.github/workflows/front_main.yml
+
+    Gitleaks:
+        name: Git Secrets Scan
+        uses: ./.github/workflows/git_secrets_scan.yml
+        
+
+    Dockerlint:
+        name: Dockerfile Linting
+        uses: ./.github/workflows/Docker_lint.yml
+    
+
+    Build_and_Push:
+        needs: Dockerlint
+        name: Docker Build and Push
+        uses: ./.github/workflows/Docker_build_push.yml
+        with:
+            secrets: inherit
+
+    Trivy_image_Scan:
+        needs: Build_and_Push
+        name: Docker Image Scan
+        uses: ./.github/workflows/trivy.yml
+        with:
+            secret: inherit
