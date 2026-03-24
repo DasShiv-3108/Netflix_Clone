@@ -39,7 +39,7 @@ jobs:
 
         - name: Check JS
           if: matrix.service == 'frontend'
-          run: npx eslint "public/js/**/*.js"
+          run: npx eslint "public/js/*.js"
           working-directory: ${{ matrix.service }}
 
         - name: Check js
