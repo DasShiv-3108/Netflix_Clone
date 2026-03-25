@@ -25,17 +25,17 @@ jobs:
 
         - name: Install Dependencies
           run: npm install --save-dev jsonlint eslint stylelint htmlhint stylelint-config-standard
-          working-directory: ${{ matrix.service }}
+          working-directory: ./${{ matrix.service }}
 
         - name: Check HTML
           if: matrix.service == 'frontend'
           run: npx htmlhint "public/**/*.html"
-          working-directory: ${{ matrix.service }}
+          working-directory: ./${{ matrix.service }}
 
         - name: Check CSS
           if: matrix.service == 'frontend'
           run: npx stylelint "public/css/**/*.css"
-          working-directory: ${{ matrix.service }}
+          working-directory: ./${{ matrix.service }}
 
         - name: Check JS
           if: matrix.service == 'frontend'
@@ -47,10 +47,10 @@ jobs:
         - name: Check js
           if: matrix.service == 'backend'
           run: npx eslint "**/.js"
-          working-directory: ${{ matrix.service }}
+          working-directory: ./${{ matrix.service }}
 
         - name: Check json
           if: matrix.service == 'backend'
           run: npx jsonlint "**/*.json"
-          working-directory: ${{ matrix.service }}
+          working-directory: ./${{ matrix.service }}
           
