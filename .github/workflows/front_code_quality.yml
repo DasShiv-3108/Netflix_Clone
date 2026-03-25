@@ -51,6 +51,6 @@ jobs:
 
         - name: Check json
           if: matrix.service == 'backend'
-          run: npx jsonlint "./*.json"
+          run: npx jsonlint ".**/*.json"
           working-directory: ./${{ matrix.service }}
           
