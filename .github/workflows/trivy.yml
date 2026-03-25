@@ -28,4 +28,4 @@ jobs:
                 context: ./${{ matrix.images }}
                 image-ref: ${{ vars.DOCKERHUB_USER }}/${{ matrix.images }}-app:latest
                 severity: CRITICAL,HIGH
-                exit-code: 1
+                exit: 1
