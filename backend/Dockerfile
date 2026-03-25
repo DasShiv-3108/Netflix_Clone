@@ -9,7 +9,7 @@ RUN npm install --only=production
 
 COPY . .
 
-FROM gcr.io/distroless/nodejs20-debian13@sha256:<digest>
+FROM gcr.io/distroless/nodejs20-debian13:debug
 
 WORKDIR /app
 
