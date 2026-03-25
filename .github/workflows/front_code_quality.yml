@@ -52,5 +52,3 @@ jobs:
           run: npx jsonlint "**/*.json"
           working-directory: ${{ matrix.service }}
           
-
-        
