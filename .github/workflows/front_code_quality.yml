@@ -46,11 +46,11 @@ jobs:
 
         - name: Check js
           if: matrix.service == 'backend'
-          run: npx eslint "./**/.js"
+          run: npx eslint "./*.js"
           working-directory: ./${{ matrix.service }}
 
         - name: Check json
           if: matrix.service == 'backend'
-          run: npx jsonlint "./**/*.json"
+          run: npx jsonlint "./*.json"
           working-directory: ./${{ matrix.service }}
           
