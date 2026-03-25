@@ -1,5 +1,5 @@
 
-FROM node:20-alpine as builder 
+FROM node:20-alpine AS builder 
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ RUN npm install --only=production
 
 COPY . .
 
-FROM gcr.io/distroless/nodejs20
+FROM gcr.io/distroless/nodejs20-debian13:latest
 
 WORKDIR /app
 
