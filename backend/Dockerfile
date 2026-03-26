@@ -3,6 +3,8 @@ FROM node:20-alpine3.23 AS builder
 
 WORKDIR /app
 
+RUN apk update && apk upgrade zlib
+
 COPY package*.json ./
 
 RUN npm install --only=production
